@@ -17,5 +17,7 @@ public class PainterComponent : MonoBehaviour
 
         lastTile = newTile;
         newTile.ClaimLand(GetComponent<PlayerComponent>());
+
+
     }
 }

@@ -29,6 +29,8 @@ public class TileLevelGenerator : MonoBehaviour
     public TileComponent FindTile(Vector3 p)
     {
         p -= transform.position;
+        p -= floorPrefab.transform.lossyScale*0.5f;
+        print(p);
 
         return map[(int)p.x].data[(int)p.y];
     }
@@ -59,14 +61,16 @@ public class TileLevelGenerator : MonoBehaviour
 
         for (int x = 0; x < size.x; x++)
         {
-            map.Add(new TileRow(size.y));
+            TileRow tr = new TileRow(size.y);
+            
             for (int y = 0; y < size.y; y++)
             {
                 GameObject ob = Instantiate(floorPrefab, transform);
                 ob.transform.position = transform.position + new Vector3(x + x * spacing, y + y * spacing);
 
-                map[x].data[y] = ob.GetComponent<TileComponent>();
+                tr.data[y] = ob.GetComponent<TileComponent>();
             }
+            map.Add(tr);
         }
     }
 }

@@ -13,5 +13,7 @@ public class TileComponent : MonoBehaviour
     {
         owner = player;
         color = owner.GetTeamColor();
+
+        GetComponent<MeshRenderer>().material.color = color;
     }
 }

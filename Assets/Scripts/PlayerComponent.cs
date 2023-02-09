@@ -18,8 +18,6 @@ public class PlayerComponent : MonoBehaviour
         transform = GetComponent<Transform>();
     }
 
-
-
     void Update()
     {
 
@@ -33,8 +31,6 @@ public class PlayerComponent : MonoBehaviour
             velocity = velocity.normalized * new Vector2(-maxSpeed, -maxSpeed);
 
         transform.position += (new Vector3(velocity.x, velocity.y) * Time.deltaTime);
-
-        bool pos = velocity.magnitude > 0;
 
         for (int i = 0; i < 2; i++)
             if (velocity[i] > 0)

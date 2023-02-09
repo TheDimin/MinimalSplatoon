@@ -13,6 +13,11 @@ public class PlayerComponent : MonoBehaviour
     private Transform transform;
 
 
+    public Color GetTeamColor()
+    {
+        return color;
+    }
+
     void Start()
     {
         transform = GetComponent<Transform>();

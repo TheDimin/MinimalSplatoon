@@ -4,15 +4,14 @@ using UnityEngine;
 
 public class TileComponent : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    //ColorCell
+    [SerializeField] Color defaultColor;
+    private Color color;
+    private PlayerComponent owner;
 
-    // Update is called once per frame
-    void Update()
+    public void ClaimLand(PlayerComponent player)
     {
-        
+        owner = player;
+        color = owner.GetTeamColor();
     }
 }

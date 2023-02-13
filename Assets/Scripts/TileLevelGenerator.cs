@@ -2,6 +2,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+public struct scores
+{
+    public float a;
+    public float b;
+    public float UnClaimed;
+
+    public scores(float A, float B)
+    {
+        a = A;
+        b = B;
+        UnClaimed = 0;
+    }
+}
+
 public class TileLevelGenerator : MonoBehaviour
 {
     [SerializeField] Vector2Int size;
@@ -35,6 +50,23 @@ public class TileLevelGenerator : MonoBehaviour
 
         if (transform.childCount != size.x * size.y)
             throw new System.Exception("Update mapSize");
+    }
+
+    public scores CalculateScores()
+    {
+        scores newScore = new scores();
+
+        foreach (var tile in tiles)
+        {
+            if (!tile.owner)
+                newScore.UnClaimed += 1;
+            else if (tile.owner.playerIndex == 1)
+                newScore.a += 1;
+            else if (tile.owner.playerIndex == 2)
+                newScore.b += 1;
+        }
+
+        return newScore;
     }
 
 

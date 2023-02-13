@@ -8,7 +8,7 @@ public class TileComponent : MonoBehaviour
     //ColorCell
     [SerializeField] Color defaultColor;
     private Color color;
-    private PlayerComponent owner;
+    public PlayerComponent owner { get; private set; }
     public BoxCollider2D Collider2D;
 
     private void Awake()
@@ -21,7 +21,8 @@ public class TileComponent : MonoBehaviour
     {
         owner = player;
         color = owner.GetTeamColor();
-
-        transform.GetComponentInChildren<MeshRenderer>().material.color = color;
+        Material meshMaterial = transform.GetComponentInChildren<MeshRenderer>().material;
+        meshMaterial.color = color;
+        meshMaterial.SetColor("_EmissiveColor", color);
     }
 }

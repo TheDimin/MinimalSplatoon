@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerComponent : MonoBehaviour
 {
     [SerializeField] Color color;
-    [SerializeField] int playerIndex = 1;
+    [SerializeField] public int playerIndex = 1;
     [SerializeField] float maxSpeed = 10;
     [SerializeField] float accelerator = 1;
     [SerializeField] float Drag = 4;
@@ -22,9 +22,10 @@ public class PlayerComponent : MonoBehaviour
 
     void Update()
     {
+        if (GameManager.instance.gameState != state.Play) return;
 
         Vector2 input = new Vector2(Input.GetAxis("Horizontal" + playerIndex), Input.GetAxis("Vertical" + playerIndex));
-        velocity += input.normalized * accelerator * Time.deltaTime*10;
+        velocity += input.normalized * accelerator * Time.deltaTime * 10;
 
         if (velocity.magnitude > maxSpeed)
             velocity = velocity.normalized * new Vector2(maxSpeed, maxSpeed);
@@ -37,7 +38,7 @@ public class PlayerComponent : MonoBehaviour
         for (int i = 0; i < 2; i++)
             if (velocity[i] > 0)
             {
-                velocity[i] -= Drag * Time.deltaTime*10;
+                velocity[i] -= Drag * Time.deltaTime * 10;
                 if (velocity[i] < 0)
                     velocity[i] = 0;
             }

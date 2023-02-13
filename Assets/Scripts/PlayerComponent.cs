@@ -10,8 +10,6 @@ public class PlayerComponent : MonoBehaviour
     [SerializeField] float accelerator = 1;
     [SerializeField] float Drag = 4;
     [SerializeField] Vector2 velocity = new Vector2();
-    private Transform transform;
-
 
     public Color GetTeamColor()
     {
@@ -20,7 +18,6 @@ public class PlayerComponent : MonoBehaviour
 
     void Start()
     {
-        transform = GetComponent<Transform>();
     }
 
     void Update()

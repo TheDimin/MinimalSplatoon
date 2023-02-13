@@ -21,7 +21,6 @@ public class TileLevelGenerator : MonoBehaviour
     [SerializeField] Vector2Int size;
     [SerializeField] List<TileRow> map = new List<TileRow>();
     [SerializeField] GameObject floorPrefab;
-    [SerializeField] float spacing = 0.01f;
 
 
     public static TileLevelGenerator instance;
@@ -66,7 +65,7 @@ public class TileLevelGenerator : MonoBehaviour
             for (int y = 0; y < size.y; y++)
             {
                 GameObject ob = Instantiate(floorPrefab, transform);
-                ob.transform.position = transform.position + new Vector3(x + x * spacing, y + y * spacing);
+                ob.transform.position = transform.position + new Vector3(x, y );
 
                 tr.data[y] = ob.GetComponent<TileComponent>();
             }

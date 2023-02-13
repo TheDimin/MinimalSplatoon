@@ -2,36 +2,25 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[System.Serializable]
-public class TileRow
-{
-    public TileRow(int i)
-    {
-        data = new List<TileComponent>(i);
-        for (int x = 0; x < i; x++)
-        {
-            data.Add(null);
-        }
-    }
-    public List<TileComponent> data = new List<TileComponent>();
-}
-
 public class TileLevelGenerator : MonoBehaviour
 {
     [SerializeField] Vector2Int size;
-    [SerializeField] List<TileRow> map = new List<TileRow>();
     [SerializeField] GameObject floorPrefab;
+    [SerializeField] List<TileComponent> tiles = new List<TileComponent>();
 
 
     public static TileLevelGenerator instance;
 
     public TileComponent FindTile(Vector3 p)
     {
-        p -= transform.position;
-        p -= floorPrefab.transform.lossyScale*0.5f;
-        print(p);
+        p.z = transform.position.z;
+        foreach (TileComponent tile in tiles)
+        {
+            if (tile.Collider2D.bounds.Contains(p))
+                return tile;
+        }
 
-        return map[(int)p.x].data[(int)p.y];
+        return null;
     }
 
     private void Awake()
@@ -48,6 +37,8 @@ public class TileLevelGenerator : MonoBehaviour
             throw new System.Exception("Update mapSize");
     }
 
+
+#if UNITY_EDITOR
     [ContextMenu("CreateMap")]
     void CreateMap()
     {
@@ -55,21 +46,18 @@ public class TileLevelGenerator : MonoBehaviour
         {
             DestroyImmediate(transform.GetChild(0).gameObject);
         }
-        map = new List<TileRow>();
+        tiles = new List<TileComponent>(size.x * size.y);
 
 
         for (int x = 0; x < size.x; x++)
-        {
-            TileRow tr = new TileRow(size.y);
-            
             for (int y = 0; y < size.y; y++)
             {
-                GameObject ob = Instantiate(floorPrefab, transform);
-                ob.transform.position = transform.position + new Vector3(x, y );
 
-                tr.data[y] = ob.GetComponent<TileComponent>();
+                GameObject ob = UnityEditor.PrefabUtility.InstantiatePrefab(floorPrefab, transform) as GameObject;
+                ob.transform.position = transform.position + new Vector3(x, y);
+
+                tiles.Add(ob.GetComponent<TileComponent>());
             }
-            map.Add(tr);
-        }
     }
+#endif
 }

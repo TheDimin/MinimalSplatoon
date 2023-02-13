@@ -98,11 +98,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b917047e35ddbe47bc90270bd491496, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  color: {r: 0, g: 0, b: 0, a: 0}
+  color: {r: 1, g: 0, b: 0, a: 1}
   playerIndex: 1
-  maxSpeed: 10
-  accelerator: 1
-  Drag: 4
+  maxSpeed: 3
+  accelerator: 2.5
+  Drag: 1
   velocity: {x: 0, y: 0}
 --- !u!114 &6142385982614106051
 MonoBehaviour:
